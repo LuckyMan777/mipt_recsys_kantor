@@ -2,8 +2,8 @@ import pandas as pd
 from surprise import SVD
 
 
-def train_svd(trainset):
-    algorithm = SVD(random_state=42)
+def train_svd(trainset, random_state):
+    algorithm = SVD(random_state=random_state)
     algorithm.fit(trainset)
     return algorithm
 

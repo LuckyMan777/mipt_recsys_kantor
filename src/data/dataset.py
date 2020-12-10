@@ -3,13 +3,13 @@
 import pandas as pd
 
 
-def get_metadata() -> pd.DataFrame:
-    return pd.read_csv('../data/external/movies_metadata.csv', low_memory=False)
+def get_metadata(path) -> pd.DataFrame:
+    return pd.read_csv(path, low_memory=False)
 
 
-def get_links() -> pd.DataFrame:
-    return pd.read_csv('../data/external/links.csv')
+def get_links(path) -> pd.DataFrame:
+    return pd.read_csv(path)
 
 
-def get_ratings() -> pd.DataFrame:
-    return pd.read_csv('../data/external/ratings_small.csv')
+def get_ratings(path) -> pd.DataFrame:
+    return pd.read_csv(path)

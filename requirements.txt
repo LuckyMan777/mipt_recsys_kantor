@@ -1,3 +1,5 @@
+PyYAML
+joblib
 surprise
 numpy
 scikit-learn
