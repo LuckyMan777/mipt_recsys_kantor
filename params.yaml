@@ -1,0 +1,29 @@
+base:
+  project: mipt_recsys
+  model:
+    models_folder: models
+  reports:
+    reports_folder: reports
+  random_state: 42
+
+
+data_load:
+  metadata_csv: data/external/movies_metadata.csv
+  links_csv: data/external/links.csv
+  ratings_csv: data/external/ratings_small.csv
+
+train_simple_model:
+  model:
+    model_name: simple_model.joblib
+  tfidf:
+    max_features: 40000
+
+preprocess_svd:
+  metadata_path: data/processed/movies_metadata.csv
+  links_path: data/processed/links.csv
+  ratings_path: data/processed/ratings_small.csv
+
+train_and_test_svd:
+  test_size: 0.25
+  model:
+    model_name: svd_model.joblib
