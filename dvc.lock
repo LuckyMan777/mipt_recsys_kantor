@@ -1,0 +1,84 @@
+train_simple:
+  cmd: python src/pipelines/train_simple.py --config=params.yaml
+  deps:
+  - path: data/external/movies_metadata.csv
+    md5: 42bf3ef8c208a01a4776955875978b1e
+    size: 34445126
+  - path: params.yaml
+    md5: cd111919715a44acd580cf6ce4567c37
+    size: 633
+  - path: src/pipelines/train_simple.py
+    md5: 7c041d4cb52c760768b34a31831ff0ca
+    size: 1117
+  outs:
+  - path: models/simple_model.joblib
+    md5: f06bf160887bad84a935cb9d7de89ebc
+    size: 8268628845
+predict_simple:
+  cmd: python src/pipelines/predict_simple.py --config=params.yaml "--title=The Dark
+    Knight Rises"
+  deps:
+  - path: data/external/movies_metadata.csv
+    md5: 42bf3ef8c208a01a4776955875978b1e
+    size: 34445126
+  - path: models/simple_model.joblib
+    md5: f06bf160887bad84a935cb9d7de89ebc
+    size: 8268628845
+  - path: params.yaml
+    md5: cd111919715a44acd580cf6ce4567c37
+    size: 633
+  - path: src/pipelines/predict_simple.py
+    md5: 1ca20d15f439024464b0eb4493ba4444
+    size: 1049
+preprocess_svd:
+  cmd: python src/pipelines/preprocess_svd.py --config=params.yaml
+  deps:
+  - path: data/external/links.csv
+    md5: 3b4a4d490847ccbe8b14f6837c3a3ffc
+    size: 989107
+  - path: data/external/movies_metadata.csv
+    md5: 42bf3ef8c208a01a4776955875978b1e
+    size: 34445126
+  - path: data/external/ratings_small.csv
+    md5: ca345f6cdb982baf0ad30a226278c194
+    size: 2438266
+  - path: params.yaml
+    md5: cd111919715a44acd580cf6ce4567c37
+    size: 633
+  - path: src/pipelines/preprocess_svd.py
+    md5: 2dbf727292bd92f6f6dc30838df9a0cc
+    size: 1558
+train_and_test_svd:
+  cmd: python src/pipelines/train_and_test_svd.py --config=params.yaml
+  deps:
+  - path: data/external/ratings_small.csv
+    md5: ca345f6cdb982baf0ad30a226278c194
+    size: 2438266
+  - path: params.yaml
+    md5: cd111919715a44acd580cf6ce4567c37
+    size: 633
+  - path: src/pipelines/train_and_test_svd.py
+    md5: 5dbf5f639737eef6a69d28058c4f6861
+    size: 1363
+  outs:
+  - path: models/svd_model.joblib
+    md5: 0c60ec3e07e359125abb61daec934e33
+    size: 9520698
+predict_svd:
+  cmd: python src/pipelines/predict_svd.py --config=params.yaml --user_id=2
+  deps:
+  - path: data/processed/movies_metadata.csv
+    md5: 3a1e0f7f9dea67acbc05cac038063788
+    size: 35312031
+  - path: data/processed/ratings_small.csv
+    md5: bcbf0247f082b64ce6999109641f7195
+    size: 2801830
+  - path: models/svd_model.joblib
+    md5: 0c60ec3e07e359125abb61daec934e33
+    size: 9520698
+  - path: params.yaml
+    md5: cd111919715a44acd580cf6ce4567c37
+    size: 633
+  - path: src/pipelines/predict_svd.py
+    md5: e312294bff331bac689cfe275a9cc09d
+    size: 1226

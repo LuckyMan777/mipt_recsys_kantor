@@ -1,3 +1,4 @@
+import argparse
 import os
 
 import joblib
@@ -25,3 +26,12 @@ def train_simple_model(config_path):
         cosine_sim,
         os.path.join(models_folder, model_name)
     )
+
+
+if __name__ == '__main__':
+
+    args_parser = argparse.ArgumentParser()
+    args_parser.add_argument('--config', dest='config', required=True)
+    args = args_parser.parse_args()
+
+    train_simple_model(args.config)

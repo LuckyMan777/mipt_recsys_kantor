@@ -1,3 +1,4 @@
+import argparse
 import os
 
 import joblib
@@ -24,3 +25,12 @@ def predict_svd(config_path, user_id):
 
     predicted_ratings = recommend_svd(algorithm, user_id, ratings, title_to_id)
     print(predicted_ratings)
+
+
+if __name__ == '__main__':
+    args_parser = argparse.ArgumentParser()
+    args_parser.add_argument('--config', dest='config', required=True)
+    args_parser.add_argument('--user_id', dest='user_id', required=True)
+    args = args_parser.parse_args()
+
+    predict_svd(args.config, args.user_id)

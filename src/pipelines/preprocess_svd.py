@@ -1,3 +1,5 @@
+import argparse
+
 import pandas as pd
 import yaml
 
@@ -31,3 +33,11 @@ def preprocess_svd(config_path):
     correct_users = ratings.userId.unique()[ratings.groupby('userId')['rating'].count() >= 50]
     ratings = ratings[ratings.userId.isin(correct_users)]
     ratings.to_csv(ratings_path)
+
+
+if __name__ == '__main__':
+    args_parser = argparse.ArgumentParser()
+    args_parser.add_argument('--config', dest='config', required=True)
+    args = args_parser.parse_args()
+
+    preprocess_svd(args.config)

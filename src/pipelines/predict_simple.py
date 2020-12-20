@@ -1,3 +1,4 @@
+import argparse
 import os
 
 import joblib
@@ -18,3 +19,12 @@ def predict_simple_model(config_path, title):
     cosine_sim = joblib.load(os.path.join(models_folder, model_name))
 
     print(get_recommendations(title, metadata, indices, cosine_sim))
+
+
+if __name__ == '__main__':
+    args_parser = argparse.ArgumentParser()
+    args_parser.add_argument('--config', dest='config', required=True)
+    args_parser.add_argument('--title', dest='title', required=True)
+    args = args_parser.parse_args()
+
+    predict_simple_model(args.config, args.title)
