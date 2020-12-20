@@ -1,3 +1,4 @@
+import argparse
 import os
 
 import joblib
@@ -7,6 +8,7 @@ from surprise.model_selection import train_test_split
 
 from src.data.dataset import get_ratings
 from src.models.svd import train_svd
+from src.evaluate.evaluate import evaluate_svd
 
 
 def train_and_test_svd(config_path):
@@ -23,7 +25,6 @@ def train_and_test_svd(config_path):
 
     algorithm = train_svd(trainset, random_state)
 
-    from src.evaluate.evaluate import evaluate_svd
     print(evaluate_svd(algorithm, testset))
 
     model_name = config['train_and_test_svd']['model']['model_name']
@@ -33,3 +34,11 @@ def train_and_test_svd(config_path):
         algorithm,
         os.path.join(models_folder, model_name)
     )
+
+
+if __name__ == '__main__':
+    args_parser = argparse.ArgumentParser()
+    args_parser.add_argument('--config', dest='config', required=True)
+    args = args_parser.parse_args()
+
+    train_and_test_svd(args.config)

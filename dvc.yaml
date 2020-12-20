@@ -1,0 +1,41 @@
+stages:
+  train_simple:
+    cmd: python src/pipelines/train_simple.py --config=params.yaml
+    deps:
+    - data/external/movies_metadata.csv
+    - params.yaml
+    - src/pipelines/train_simple.py
+    outs:
+    - models/simple_model.joblib
+  predict_simple:
+    cmd: python src/pipelines/predict_simple.py --config=params.yaml "--title=The
+      Dark Knight Rises"
+    deps:
+    - data/external/movies_metadata.csv
+    - models/simple_model.joblib
+    - params.yaml
+    - src/pipelines/predict_simple.py
+  preprocess_svd:
+    cmd: python src/pipelines/preprocess_svd.py --config=params.yaml
+    deps:
+    - data/external/links.csv
+    - data/external/movies_metadata.csv
+    - data/external/ratings_small.csv
+    - params.yaml
+    - src/pipelines/preprocess_svd.py
+  train_and_test_svd:
+    cmd: python src/pipelines/train_and_test_svd.py --config=params.yaml
+    deps:
+    - data/external/ratings_small.csv
+    - params.yaml
+    - src/pipelines/train_and_test_svd.py
+    outs:
+    - models/svd_model.joblib
+  predict_svd:
+    cmd: python src/pipelines/predict_svd.py --config=params.yaml --user_id=2
+    deps:
+    - data/processed/movies_metadata.csv
+    - data/processed/ratings_small.csv
+    - models/svd_model.joblib
+    - params.yaml
+    - src/pipelines/predict_svd.py
